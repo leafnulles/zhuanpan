@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<meta charset="utf-8">
+	<title>小叶-大转盘</title>
+  </head>
+  <style>
+  
+  *{
+    margin:0;
+    padding:0;
+    list-style:none;
+    box-sizing:border-box;
+    
+ }
+
+html,body{
+  width:100%;
+  height:100%
+  overflow:hidden;
+  
+  
+}
+  
+  
+  .disk{
+    position:absolute;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+    margin:auto;
+    width:600px;
+    height:600px;
+    border:12px solid #ff9500;
+    border-radius:50%;
+    background-image:repeating-conic-gradient(#ffb800 0,#fff65f 60deg,#ffb800 60deg,#fff65f 120deg);
+    transition:5s ease;
+}
+
+.disk .line{
+  
+  position:absolute;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+    margin:auto;
+    width:150px;
+    height:100%;
+  --  background-color:red
+  
+}
+
+
+.line:nth-child(1){
+  transform:rotate(30deg)
+  
+}
+
+.line:nth-child(2){
+  transform:rotate(90deg)
+  
+}
+
+.line:nth-child(3){
+  transform:rotate(150deg)
+  
+}
+
+
+
+.tips{
+  
+  position:absolute;
+  top:-200px;
+  width:100%;
+  height:200px;
+  line-height:200px;
+  text-align:center;
+  background-color:red;
+  color:white;
+  opacity:0;
+  font-size:80px;
+  font-weight:bolder;
+  transition:.5s ease;
+  cursor:pointer;
+}
+
+.tips.active{
+  
+  top:0;
+  bottom:0;
+  margin:auto;
+  opacity:1;
+  
+}
+  
+  
+  .top-box{
+    
+    position:absolute;
+    top:0;
+    width:150px;
+    height:150px;
+    text-align:center;
+    line-height:150px;
+    font-size:40px;
+    font-weight:bolder;
+    color:black;
+--    border:3px solid #000
+    
+ }
+
+  .bottom-box{
+    
+    position:absolute;
+    bottom:0;
+    width:150px;
+    height:150px;
+    text-align:center;
+    line-height:150px;
+    font-size:40px;
+    font-weight:bolder;
+    color:black;
+    transform:rotate(180deg);
+--    border:3px solid #000;
+    
+ }
+
+button::after{
+  position:absolute;
+    left:0;
+    top:-148px;
+    right:0;
+    bottom:0;
+    margin:auto;
+    width:0;
+    height:0;
+    content:"";
+    border-bottom:50px solid red;
+    border-right:20px solid transparent;
+    border-left:20px solid transparent;
+}
+  
+  button{
+   position:absolute;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+    margin:auto;
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    background-color:red;
+    border:10px solid #ffa800;
+    color:white;
+    cursor:pointer;
+    font-size:55px;
+    font-weight:bolder;
+  }
+  </style>
+  <body>	
+	<div class="disk" id="disk">
+ 
+ <div class="line">
+ <div class="top-box">一等奖</div>
+  <div class="bottom-box">四等奖</div>
+ </div>
+  <div class="line">
+   <div class="top-box">二等奖</div>
+  <div class="bottom-box">鼓励奖</div>
+  </div>
+   <div class="line">
+    <div class="top-box">三等奖</div>
+  <div class="bottom-box">参与奖</div>
+   </div>
+ </div>
+ <button>GO</button>
+ <div class="tips" id="tips"></div>
+  </body>
+  <script>
+  
+  let btn = document.querySelector('button')
+  let disk = document.getElementById("disk")
+  let tips = document.getElementById('tips')
+  let arr=[
+  "一等奖","二等奖","三等奖","四等奖",
+  "鼓励奖","参与奖"
+  
+  ]
+  
+  let deg=0
+  
+  
+  let turns=0
+  
+  
+  let degnow=0
+  
+  let swit=true
+  
+  
+  btn.onclick=function(){
+    if (swit){
+      swit=false;
+      
+      deg=(Math.random() * (6-0) +0)*60;
+      
+      turns+=(Math.floor(Math.random()*(10-1)+1))*360;
+      
+      degnow=deg+turns;
+      
+      disk.style.transform = "rotate("+-degnow+"deg)";
+     
+     
+     setTimeout(()=>{
+       swit=true;
+       
+     //  alert("恭喜获得"+arr[Math.floor(deg/60)]);
+       
+       tips.classList.add("active")
+     //  alert();
+       tips.innerHTML="恭喜获得"+arr[Math.floor(deg/60)]
+       
+       
+       
+       },5500);
+
+      
+    }
+      
+  }
+
+tips.onclick=function (){
+this.classList.remove("active")
+}
+  
+  
+  </script>
+</html>
